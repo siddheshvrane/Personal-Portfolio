@@ -15,11 +15,21 @@ const StickyMusicPlayer = ({ isPlaying, onToggle, currentTime, duration, onSeek 
             const distToBottom = documentHeight - (scrollY + windowHeight);
 
             // Toggle Visibility based on Hero section (approx 600px)
-            if (scrollY > 600) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
+            let shouldShow = scrollY > 600;
+
+            // Check if on mobile and overlapping with Contact section
+            if (shouldShow && window.innerWidth < 768) {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    const rect = contactSection.getBoundingClientRect();
+                    // If contact section top is within viewport (meaning it's visible)
+                    if (rect.top < windowHeight) {
+                        shouldShow = false;
+                    }
+                }
             }
+
+            setIsVisible(shouldShow);
 
             // Footer Collision Logic
             const footerHeight = 450;

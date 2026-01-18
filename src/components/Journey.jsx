@@ -89,7 +89,7 @@ const Journey = () => {
     return (
         <section className="py-20 bg-off-white border-b-4 border-black overflow-hidden relative">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="mb-8 flex flex-col md:flex-row justify-between items-end gap-4">
+                <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <div>
                         <h2 className="text-4xl md:text-8xl font-black mb-4 uppercase tracking-tighter">
                             My <span className="text-neon-orange">Journey</span>
@@ -139,7 +139,7 @@ const Journey = () => {
                                         <img
                                             src={journeyData[currentIndex].image}
                                             alt={journeyData[currentIndex].title}
-                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105"
+                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-active:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105"
                                         />
                                     </div>
 
