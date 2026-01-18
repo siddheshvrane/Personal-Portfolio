@@ -1,0 +1,26 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'neon-lime': '#ccff00',
+        'neon-orange': '#ff4d00',
+        'off-white': '#fcfcfc',
+        'brutal-black': '#000000',
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      boxShadow: {
+        'brutal': '4px 4px 0 0 #000000',
+        'brutal-lg': '8px 8px 0 0 #000000',
+      },
+    },
+  },
+  plugins: [],
+}
