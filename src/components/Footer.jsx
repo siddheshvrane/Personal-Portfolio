@@ -9,7 +9,7 @@ const XIcon = () => (
 
 const Footer = () => {
     return (
-        <footer className="bg-brutal-black text-off-white border-t-4 border-black pt-10 md:pt-16 pb-6 md:pb-8">
+        <footer id="footer" className="bg-brutal-black text-off-white border-t-4 border-black pt-10 md:pt-16 pb-6 md:pb-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                     <div>

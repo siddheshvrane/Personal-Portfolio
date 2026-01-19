@@ -92,7 +92,7 @@ const Journey = () => {
                 <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <div>
                         <h2 className="text-4xl md:text-8xl font-black mb-4 uppercase tracking-tighter">
-                            My <span className="text-neon-orange">Journey</span>
+                            Cooking <span className="text-neon-orange">Process</span>
                         </h2>
                         <div className="w-16 md:w-24 h-4 bg-black"></div>
                         <p className="font-mono font-bold mt-4 text-base">The path of chaos and code.</p>

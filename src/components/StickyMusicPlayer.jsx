@@ -8,42 +8,84 @@ const StickyMusicPlayer = ({ isPlaying, onToggle, currentTime, duration, onSeek 
     const [bottomOffset, setBottomOffset] = useState(24);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const distToBottom = documentHeight - (scrollY + windowHeight);
+        let ticking = false;
+        const contactSection = document.getElementById('contact');
+        const footerSection = document.getElementById('footer');
 
-            // Toggle Visibility based on Hero section (approx 600px)
-            let shouldShow = scrollY > 600;
-
-            // Check if on mobile and overlapping with Contact section
-            if (shouldShow && window.innerWidth < 768) {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                    const rect = contactSection.getBoundingClientRect();
-                    // If contact section top is within viewport (meaning it's visible)
-                    if (rect.top < windowHeight) {
-                        shouldShow = false;
-                    }
-                }
-            }
-
-            setIsVisible(shouldShow);
-
-            // Footer Collision Logic
-            const footerHeight = 450;
-            if (distToBottom < footerHeight) {
-                setBottomOffset(24 + (footerHeight - distToBottom));
+        // Intersection Observer for Contact Section (Mobile only check)
+        const observerCallback = (entries) => {
+            const [entry] = entries;
+            // If contact section is visible (intersecting) and we are on mobile
+            if (entry.isIntersecting && window.innerWidth < 768) {
+                setIsVisible(false);
             } else {
-                setBottomOffset(24);
+                // Re-evaluate visibility based on scroll position if not intersecting contact
+                checkScrollVisibility();
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        const observer = new IntersectionObserver(observerCallback, {
+            threshold: 0.1 // Trigger when 10% of contact is visible
+        });
+
+        if (contactSection) {
+            observer.observe(contactSection);
+        }
+
+        const checkScrollVisibility = () => {
+            const scrollY = window.scrollY;
+            // Basic visibility check (past Hero)
+            if (scrollY > 600) {
+                // Double check mobile contact overlap if needed, but observer handles most
+                // Just set true here, observer callback will override if contact is view
+                // checking overlap manually for robustness if observer didn't fire recently
+                if (contactSection && window.innerWidth < 768) {
+                    const rect = contactSection.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                        setIsVisible(false);
+                        return;
+                    }
+                }
+                setIsVisible(true);
+            } else {
+                setIsVisible(false);
+            }
+        };
+
+        const updatePosition = () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+
+            // Check visibility based on scroll depth
+            checkScrollVisibility();
+
+            // Footer Collision Logic
+            if (footerSection) {
+                const footerRect = footerSection.getBoundingClientRect();
+                const visibleFooterHeight = Math.max(0, windowHeight - footerRect.top);
+                setBottomOffset(24 + visibleFooterHeight);
+            }
+            ticking = false;
+        };
+
+        const onScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updatePosition);
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('resize', updatePosition);
         // Trigger once on mount
-        handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
+        updatePosition();
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', updatePosition);
+            if (contactSection) observer.unobserve(contactSection);
+        };
     }, []);
 
     const formatTime = (time) => {
@@ -62,7 +104,7 @@ const StickyMusicPlayer = ({ isPlaying, onToggle, currentTime, duration, onSeek 
                     exit={{ y: 200, opacity: 0 }}
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
                     style={{ bottom: `${bottomOffset}px` }}
-                    className="fixed left-0 right-0 md:left-auto md:right-6 z-50 w-full max-w-sm mx-auto md:mx-0 transition-all duration-75 px-4 md:px-0"
+                    className="fixed left-0 right-0 md:left-auto md:right-6 z-50 w-full max-w-sm mx-auto md:mx-0 px-4 md:px-0"
                 >
                     <div className="bg-neon-lime border-4 border-black shadow-brutal p-4 relative">
                         <div className="flex items-center gap-4">

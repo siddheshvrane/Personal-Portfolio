@@ -15,7 +15,8 @@ import {
     Shield,
     Layers,
     Scaling,
-    Star
+    Star,
+    Lightbulb
 } from 'lucide-react';
 
 const BentoGrid = () => {
@@ -109,10 +110,10 @@ const BentoGrid = () => {
 
                         {/* What I Deliver */}
                         <div className="lg:col-span-8 bg-white border-4 border-black p-4 md:p-6 shadow-brutal hover:shadow-brutal-lg transition-all flex flex-col justify-center items-center text-center bg-[url('https://www.transparenttextures.com/patterns/graphy.png')]">
-                            <h3 className="text-2xl md:text-3xl font-black uppercase mb-6">What I Deliver</h3>
+                            <h3 className="text-2xl md:text-3xl font-black uppercase mb-6">What this Bento Serves</h3>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
                                 {[
-                                    { label: 'CREATIVITY', icon: Zap },
+                                    { label: 'CREATIVITY', icon: Lightbulb },
                                     { label: 'CONSISTENCY', icon: Layout },
                                     { label: 'RELIABILITY', icon: Shield },
                                     { label: 'MODULARITY', icon: Layers },
