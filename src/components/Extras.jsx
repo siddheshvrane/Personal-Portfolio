@@ -67,7 +67,7 @@ const MusicGuessGame = () => {
                 ${showResult ? 'blur-sm grayscale opacity-60' : ''}
             `}>
                 <h4 className="font-black uppercase mb-4 text-xl text-center">Guess My Most Played Artist</h4>
-                <div className="flex flex-wrap justify-center gap-6">
+                <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                     {artists.map((artist) => (
                         <motion.div
                             key={artist.id}
@@ -78,7 +78,7 @@ const MusicGuessGame = () => {
                             whileHover={!showX ? { rotate: [-3, 3, -3], scale: 1.1, transition: { duration: 0.3 } } : {}}
                             whileTap={!showX ? { scale: 0.95 } : {}}
                         >
-                            <div className="w-24 h-28 md:w-28 md:h-32 relative">
+                            <div className="w-16 h-20 sm:w-20 sm:h-24 md:w-28 md:h-32 relative">
                                 <img
                                     src={artist.img}
                                     alt={artist.name}
@@ -87,11 +87,11 @@ const MusicGuessGame = () => {
                                 />
                                 {showX && (
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <X className="text-red-600 w-16 h-16 drop-shadow-md stroke-[4]" />
+                                        <X className="text-red-600 w-10 h-10 md:w-16 md:h-16 drop-shadow-md stroke-[4]" />
                                     </div>
                                 )}
                             </div>
-                            <p className="mt-2 text-xs font-bold text-center uppercase tracking-tight">
+                            <p className="mt-2 text-[10px] md:text-xs font-bold text-center uppercase tracking-tight max-w-[60px] md:max-w-none leading-tight">
                                 {artist.name}
                             </p>
                         </motion.div>
@@ -151,11 +151,11 @@ const PixelFolder = ({ color, title, isOpen, onClick }) => {
             onClick={onClick}
             className="cursor-pointer group flex flex-col items-center"
         >
-            <div className="relative w-40 h-40 md:w-52 md:h-52">
+            <div className="relative w-16 h-16 xs:w-20 xs:h-20 sm:w-40 sm:h-40 md:w-52 md:h-52">
                 {/* Shadow Layer (Offset pixelated) */}
                 <svg
                     viewBox="0 0 16 16"
-                    className="w-full h-full absolute top-2 left-2 opacity-100"
+                    className="w-full h-full absolute top-1 left-1 md:top-2 md:left-2 opacity-100"
                     style={{ shapeRendering: 'crispEdges' }}
                 >
                     <path d="M2 4 h6 l1 -1 h5 v9 h-12 z" fill="#000000" /> {/* Back Shadow */}
@@ -194,8 +194,8 @@ const PixelFolder = ({ color, title, isOpen, onClick }) => {
                 </svg>
             </div>
 
-            <div className="mt-4 text-center">
-                <h3 className="font-mono font-bold uppercase text-lg md:text-xl leading-tight group-hover:underline decoration-4 underline-offset-4 decoration-neon-lime">
+            <div className="mt-2 md:mt-4 text-center">
+                <h3 className="font-mono font-bold uppercase text-[10px] leading-tight md:text-xl md:leading-tight group-hover:underline decoration-4 underline-offset-4 decoration-neon-lime break-words w-full max-w-[70px] md:max-w-none">
                     {title}
                 </h3>
             </div>
@@ -435,7 +435,7 @@ const Extras = ({ onPlaySong, currentSong, isPlaying }) => {
                     <div className="w-16 md:w-24 h-4 bg-black"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 mt-16">
+                <div className="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8 mb-12 mt-16">
                     {hobbies.map((hobby) => (
                         <PixelFolder
                             key={hobby.id}
