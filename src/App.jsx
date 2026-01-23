@@ -7,14 +7,27 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import StickyMusicPlayer from './components/StickyMusicPlayer';
 import Journey from './components/Journey';
+import Extras from './components/Extras';
 import songAudio from './assets/Post Malone, Swae Lee - Sunflower (Spider-Man_ Into the Spider-Verse) (Official Video).mp3';
+import songBanner from './assets/Song_banner.jpg'; // Import default banner here
 
 export default function App() {
+  // Default Song Data
+  const defaultSong = {
+    title: "Sunflower",
+    artist: "Post Malone, Swae Lee",
+    cover: songBanner,
+    src: songAudio
+  };
+
   // Global Audio State
+  const [currentSong, setCurrentSong] = useState(defaultSong);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const audioRef = useRef(new Audio(songAudio));
+
+  // Use a ref to keep track of the current audio element
+  const audioRef = useRef(new Audio(defaultSong.src));
 
   // Audio Logic
   useEffect(() => {
@@ -41,6 +54,9 @@ export default function App() {
     }
   }, []);
 
+  // Handle changing song source when currentSong changes (if needed manually, but we do it in handlePlaySong)
+  // We don't need a useEffect for src change because we do it imperatively in handlePlaySong to avoid auto-play issues or race conditions
+
   const togglePlay = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -48,6 +64,22 @@ export default function App() {
       audioRef.current.play().catch(e => console.error("Playback failed:", e));
     }
     setIsPlaying(!isPlaying);
+  };
+
+  const handlePlaySong = (newSong) => {
+    if (currentSong.src === newSong.src) {
+      togglePlay();
+      return;
+    }
+
+    // Change song
+    audioRef.current.src = newSong.src;
+    audioRef.current.load();
+    setCurrentSong(newSong);
+
+    audioRef.current.play().then(() => {
+      setIsPlaying(true);
+    }).catch(e => console.error("Playback failed:", e));
   };
 
   const handleSeek = (time) => {
@@ -62,10 +94,12 @@ export default function App() {
         <Hero
           isPlaying={isPlaying}
           onToggle={togglePlay}
+          currentSong={currentSong}
         />
         <Projects />
         <BentoGrid />
         <Journey />
+        <Extras onPlaySong={handlePlaySong} currentSong={currentSong} isPlaying={isPlaying} />
         <Contact />
       </main>
       <Footer />
@@ -77,6 +111,7 @@ export default function App() {
         currentTime={currentTime}
         duration={duration}
         onSeek={handleSeek}
+        currentSong={currentSong}
       />
     </div>
   )

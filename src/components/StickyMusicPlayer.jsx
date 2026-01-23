@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, SkipForward, SkipBack, X, Volume2 } from 'lucide-react';
 import songBanner from '../assets/Song_banner.jpg';
 
-const StickyMusicPlayer = ({ isPlaying, onToggle, currentTime, duration, onSeek }) => {
+const StickyMusicPlayer = ({ isPlaying, onToggle, currentTime, duration, onSeek, currentSong }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [bottomOffset, setBottomOffset] = useState(24);
 
@@ -110,15 +110,15 @@ const StickyMusicPlayer = ({ isPlaying, onToggle, currentTime, duration, onSeek 
                         <div className="flex items-center gap-4">
                             {/* Album Art (Static) */}
                             <div className="w-16 h-16 border-2 border-black overflow-hidden flex-shrink-0 relative">
-                                <img src={songBanner} alt="Album Art" className="w-full h-full object-cover" />
+                                <img src={currentSong?.cover || songBanner} alt="Album Art" className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black/10 rounded-full w-2 h-2 m-auto"></div>
                             </div>
 
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between mb-1">
                                     <div className="overflow-hidden">
-                                        <h3 className="font-black text-black truncate uppercase text-sm">Sunflower</h3>
-                                        <p className="text-xs font-bold text-black/70 truncate">Post Malone, Swae Lee</p>
+                                        <h3 className="font-black text-black truncate uppercase text-sm">{currentSong?.title || "Sunflower"}</h3>
+                                        <p className="text-xs font-bold text-black/70 truncate">{currentSong?.artist || "Post Malone, Swae Lee"}</p>
                                     </div>
                                     <div className="flex gap-2">
                                         <button

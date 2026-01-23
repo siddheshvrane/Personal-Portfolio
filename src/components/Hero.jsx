@@ -10,7 +10,7 @@ import baymax from '../assets/baymax.png';
 import humanImg from '../assets/humanity.png';
 
 
-const Hero = ({ isPlaying, onToggle }) => {
+const Hero = ({ isPlaying, onToggle, currentSong }) => {
     return (
         <section className="min-h-screen flex flex-col justify-center pt-20 pb-20 border-b-4 border-black bg-off-white relative overflow-hidden">
             {/* Background Grid Pattern (Optional CSS based) */}
@@ -60,7 +60,7 @@ const Hero = ({ isPlaying, onToggle }) => {
                     {/* Decorative Brutalist Element */}
                     {/* Rotating Wheel Showcase */}
                     <div className="flex justify-center flex-1 relative h-[350px] md:h-[500px] items-center mt-12 md:mt-0 scale-75 md:scale-100 origin-center">
-                        <RotatingWheel isPlaying={isPlaying} onToggle={onToggle} />
+                        <RotatingWheel isPlaying={isPlaying} onToggle={onToggle} currentSong={currentSong} />
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@ const Hero = ({ isPlaying, onToggle }) => {
     );
 };
 
-const RotatingWheel = ({ isPlaying, onToggle }) => {
+const RotatingWheel = ({ isPlaying, onToggle, currentSong }) => {
     // Placeholder images - User can replace these URLS
     const items = [
         { id: 1, src: myselfPixel, alt: "My Pixel Self" },
@@ -128,7 +128,7 @@ const RotatingWheel = ({ isPlaying, onToggle }) => {
                     {/* Center Banner Image */}
                     <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-off-white z-10">
                         <img
-                            src={songBanner}
+                            src={currentSong?.cover || songBanner}
                             alt="Album Art"
                             className="w-full h-full object-cover"
                         />
