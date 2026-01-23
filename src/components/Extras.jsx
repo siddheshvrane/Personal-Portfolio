@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Music, PenTool, Image, BookOpen, Folder, FolderOpen, X, Play, Pause, Waves } from 'lucide-react';
 
 // Import images
-import imgSabrina from '../assets/extras/music/Sabrina.png';
-import imgArijit from '../assets/extras/music/Arijit.png';
-import imgLata from '../assets/extras/music/Lata.png';
-import imgShreya from '../assets/extras/music/Shreya.png';
-import imgWeeknd from '../assets/extras/music/Weeknd.png';
-import imgPritam from '../assets/extras/music/Pritam.png';
+import imgSabrina from '../assets/Extras/Music/Sabrina.png';
+import imgArijit from '../assets/Extras/Music/Arijit.png';
+import imgLata from '../assets/Extras/Music/Lata.png';
+import imgShreya from '../assets/Extras/Music/Shreya.png';
+import imgWeeknd from '../assets/Extras/Music/Weeknd.png';
+import imgPritam from '../assets/Extras/Music/Pritam.png';
 
 // Import book images
 import imgAtomic from '../assets/Extras/Books/Atomic habits.jpg';
