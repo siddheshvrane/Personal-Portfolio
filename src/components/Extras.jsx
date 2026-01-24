@@ -60,13 +60,13 @@ const MusicGuessGame = () => {
     };
 
     return (
-        <div className="relative w-full h-64 md:h-72 flex items-center justify-center font-mono overflow-hidden">
+        <div className="relative w-full min-h-64 h-auto md:h-72 flex items-center justify-center font-mono overflow-hidden py-4 md:py-0">
             {/* Background Artists Layer */}
             <div className={`
                 absolute inset-0 flex flex-col items-center justify-center transition-all duration-500
                 ${showResult ? 'blur-sm grayscale opacity-60' : ''}
             `}>
-                <h4 className="font-black uppercase mb-4 text-xl text-center">Guess My Most Played Artist</h4>
+                <h4 className="font-black uppercase mb-4 text-sm md:text-xl text-center">Guess My Most Played Artist</h4>
                 <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                     {artists.map((artist) => (
                         <motion.div
@@ -78,7 +78,7 @@ const MusicGuessGame = () => {
                             whileHover={!showX ? { rotate: [-3, 3, -3], scale: 1.1, transition: { duration: 0.3 } } : {}}
                             whileTap={!showX ? { scale: 0.95 } : {}}
                         >
-                            <div className="w-16 h-20 sm:w-20 sm:h-24 md:w-28 md:h-32 relative">
+                            <div className="w-12 h-16 xs:w-16 xs:h-20 sm:w-20 sm:h-24 md:w-28 md:h-32 relative">
                                 <img
                                     src={artist.img}
                                     alt={artist.name}
@@ -91,7 +91,7 @@ const MusicGuessGame = () => {
                                     </div>
                                 )}
                             </div>
-                            <p className="mt-2 text-[10px] md:text-xs font-bold text-center uppercase tracking-tight max-w-[60px] md:max-w-none leading-tight">
+                            <p className="mt-2 text-[9px] md:text-xs font-bold text-center uppercase tracking-tight max-w-[80px] md:max-w-none leading-tight">
                                 {artist.name}
                             </p>
                         </motion.div>
@@ -202,6 +202,70 @@ const PixelFolder = ({ color, title, isOpen, onClick }) => {
         </motion.div>
     );
 };
+
+const AppendixContent = () => (
+    <div className="space-y-6">
+        <div className="relative p-6 border-2 border-black bg-white shadow-brutal-sm overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none">
+                <svg className="w-full h-full" preserveAspectRatio="none">
+                    <motion.path
+                        d="M0 50 Q 25 20, 50 50 T 100 50 T 150 50 T 200 50 T 250 50 T 300 50 T 350 50 T 400 50 T 450 50"
+                        fill="none"
+                        stroke="black"
+                        strokeWidth="2"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 1, pathOffset: [0, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
+                </svg>
+            </div>
+
+            <div className="relative z-10 flex flex-col gap-4">
+                <p className="font-mono text-lg leading-relaxed">
+                    <span className="text-3xl mr-2"></span>
+                    My mood is something like <span className="font-bold underline decoration-wavy decoration-neon-orange">Sinusoidal waves</span>.
+                    Sometimes a wave of hobby erodes and fades, then some another hobby appears in a quirky cool way...
+                </p>
+
+                {/* Sine Wave Animation */}
+                <div className="w-full h-12 flex items-center justify-center overflow-hidden my-2">
+                    <svg width="100%" height="100%" viewBox="0 0 400 60" preserveAspectRatio="none">
+                        <motion.path
+                            d="M0 30 Q 10 5, 20 30 T 40 30 T 60 30 T 80 30 T 100 30 T 120 30 T 140 30 T 160 30 T 180 30 T 200 30 T 220 30 T 240 30 T 260 30 T 280 30 T 300 30 T 320 30 T 340 30 T 360 30 T 380 30 T 400 30 T 420 30 T 440 30"
+                            fill="none"
+                            stroke="#ccff00"
+                            strokeWidth="3"
+                            animate={{ x: [-40, 0] }}
+                            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                        />
+                        <motion.path
+                            d="M0 30 Q 10 55, 20 30 T 40 30 T 60 30 T 80 30 T 100 30 T 120 30 T 140 30 T 160 30 T 180 30 T 200 30 T 220 30 T 240 30 T 260 30 T 280 30 T 300 30 T 320 30 T 340 30 T 360 30 T 380 30 T 400 30 T 420 30 T 440 30"
+                            fill="none"
+                            stroke="black"
+                            strokeWidth="3"
+                            animate={{ x: [-40, 0] }}
+                            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                            style={{ opacity: 0.6 }}
+                        />
+                    </svg>
+                </div>
+
+                <p className="font-mono text-sm md:text-base border-l-4 border-black pl-4 italic">
+                    Still some worth mentioning hobbies...
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                    {["Singing", "Drawing", "Travelling", "Understanding/Exploring various forms of Art", "Building creative neural networks"].map((tag, i) => (
+                        <span key={i} className="px-3 py-1 border-2 border-black bg-gray-100 font-bold text-xs uppercase hover:bg-neon-lime transition-colors cursor-default">
+                            {tag}
+                        </span>
+                    ))}
+                    <span className="px-3 py-1 bg-black text-white font-mono text-xs">etc, etc... and list never ends</span>
+                </div>
+            </div>
+        </div>
+    </div>
+);
 
 const Extras = ({ onPlaySong, currentSong, isPlaying }) => {
     const [activeTab, setActiveTab] = useState(null);
@@ -359,69 +423,7 @@ const Extras = ({ onPlaySong, currentSong, isPlaying }) => {
             title: "Appendix",
             icon: <Waves size={32} />,
             color: "bg-pink-400",
-            content: (
-                <div className="space-y-6">
-                    <div className="relative p-6 border-2 border-black bg-white shadow-brutal-sm overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none">
-                            <svg className="w-full h-full" preserveAspectRatio="none">
-                                <motion.path
-                                    d="M0 50 Q 25 20, 50 50 T 100 50 T 150 50 T 200 50 T 250 50 T 300 50 T 350 50 T 400 50 T 450 50"
-                                    fill="none"
-                                    stroke="black"
-                                    strokeWidth="2"
-                                    initial={{ pathLength: 0, opacity: 0 }}
-                                    animate={{ pathLength: 1, opacity: 1, pathOffset: [0, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                                />
-                            </svg>
-                        </div>
-
-                        <div className="relative z-10 flex flex-col gap-4">
-                            <p className="font-mono text-lg leading-relaxed">
-                                <span className="text-3xl mr-2"></span>
-                                My mood is something like <span className="font-bold underline decoration-wavy decoration-neon-orange">Sinusoidal waves</span>.
-                                Sometimes a wave of hobby erodes and fades, then some another hobby appears in a quirky cool way...
-                            </p>
-
-                            {/* Sine Wave Animation */}
-                            <div className="w-full h-12 flex items-center justify-center overflow-hidden my-2">
-                                <svg width="100%" height="100%" viewBox="0 0 400 60" preserveAspectRatio="none">
-                                    <motion.path
-                                        d="M0 30 Q 10 5, 20 30 T 40 30 T 60 30 T 80 30 T 100 30 T 120 30 T 140 30 T 160 30 T 180 30 T 200 30 T 220 30 T 240 30 T 260 30 T 280 30 T 300 30 T 320 30 T 340 30 T 360 30 T 380 30 T 400 30 T 420 30 T 440 30"
-                                        fill="none"
-                                        stroke="#ccff00"
-                                        strokeWidth="3"
-                                        animate={{ x: [-40, 0] }}
-                                        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                                    />
-                                    <motion.path
-                                        d="M0 30 Q 10 55, 20 30 T 40 30 T 60 30 T 80 30 T 100 30 T 120 30 T 140 30 T 160 30 T 180 30 T 200 30 T 220 30 T 240 30 T 260 30 T 280 30 T 300 30 T 320 30 T 340 30 T 360 30 T 380 30 T 400 30 T 420 30 T 440 30"
-                                        fill="none"
-                                        stroke="black"
-                                        strokeWidth="3"
-                                        animate={{ x: [-40, 0] }}
-                                        transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                                        style={{ opacity: 0.6 }}
-                                    />
-                                </svg>
-                            </div>
-
-                            <p className="font-mono text-sm md:text-base border-l-4 border-black pl-4 italic">
-                                Still some worth mentioning hobbies...
-                            </p>
-
-                            <div className="flex flex-wrap gap-2">
-                                {["Singing", "Drawing", "Travelling", "Understanding/Exploring various forms of Art", "Building creative neural networks"].map((tag, i) => (
-                                    <span key={i} className="px-3 py-1 border-2 border-black bg-gray-100 font-bold text-xs uppercase hover:bg-neon-lime transition-colors cursor-default">
-                                        {tag}
-                                    </span>
-                                ))}
-                                <span className="px-3 py-1 bg-black text-white font-mono text-xs">etc, etc... and list never ends</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
+            content: <AppendixContent />
         }
     ];
 
@@ -466,7 +468,7 @@ const Extras = ({ onPlaySong, currentSong, isPlaying }) => {
 
                                 {activeTab === 1 || activeTab === 2 || activeTab === 3 || activeTab === 4 ? (
                                     <div className="flex flex-col gap-8">
-                                        <h3 className="text-3xl font-black uppercase flex items-center gap-3">
+                                        <h3 className="text-3xl font-black uppercase flex items-center gap-3 pr-14 md:pr-0">
                                             {hobbies.find(h => h.id === activeTab)?.title}
                                         </h3>
 
