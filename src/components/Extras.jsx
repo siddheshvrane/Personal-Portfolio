@@ -107,7 +107,7 @@ const MusicGuessGame = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         className="absolute z-10 w-[95%] md:w-[90%] p-3 md:p-4 bg-black/85 backdrop-blur-md text-neon-lime border-4 border-neon-lime shadow-[6px_6px_0px_0px_#ccff00]"
                     >
-                        <div className="flex flex-row items-center gap-4 md:gap-6">
+                        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-center md:text-left">
                             <div className="w-20 h-20 md:w-24 md:h-24 shrink-0">
                                 <img
                                     src={imgPritam}
@@ -115,7 +115,7 @@ const MusicGuessGame = () => {
                                     className="w-full h-full object-contain filter drop-shadow-[2px_2px_0px_#ccff00]"
                                 />
                             </div>
-                            <div className="flex-1 text-left">
+                            <div className="flex-1">
                                 <h3 className="text-2xl md:text-3xl font-black uppercase mb-1 animate-pulse leading-none">
                                     It's PRITAM!
                                 </h3>
@@ -290,7 +290,7 @@ const Extras = ({ onPlaySong, currentSong, isPlaying }) => {
                     </p>
                     <div className="p-6 border-2 border-black bg-white shadow-brutal-sm bg-[url('https://www.transparenttextures.com/patterns/graphy.png')]">
                         <h4 className="font-black uppercase mb-4 text-xl">Some Good Reads</h4>
-                        <div className="flex flex-row flex-wrap md:flex-nowrap justify-center gap-8 md:gap-12 pb-4">
+                        <div className="flex flex-row flex-nowrap overflow-x-auto md:overflow-visible justify-start md:justify-center gap-4 md:gap-12 pb-4 md:pb-0 scrollbar-hide snap-x">
                             {[
                                 { title: "Atomic Habits", img: imgAtomic },
                                 { title: "Deep Work", img: imgDeepWork },
